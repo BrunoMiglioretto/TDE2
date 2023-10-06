@@ -35,8 +35,20 @@ class Professional(Base):
         "consultation_fee", FLOAT, nullable=True, unique=False
     )
     person: Mapped["Person"] = relationship(back_populates="people")
+    doctors: Mapped[List["Doctor"]] = relationship(
+        back_populates="professional", cascade="all, delete-orphan"
+    )
 
-    def __init__(self, enrollment, salary, start_date, working_range, speciality, consultation_fee, person):
+    def __init__(
+        self,
+        enrollment,
+        salary,
+        start_date,
+        working_range,
+        speciality,
+        consultation_fee,
+        person,
+    ):
         self.enrollment = enrollment
         self.salary = salary
         self.start_date = start_date

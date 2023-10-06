@@ -47,7 +47,19 @@ class Patient(Base):
     )
     person: Mapped["Person"] = relationship(back_populates="patients")
 
-    def __init__(self, weight, marital_status, profession, emergency_contact_name, emergency_contact_phone, birth_date, sex, health_insurance, hospitalization_date, person):
+    def __init__(
+        self,
+        weight,
+        marital_status,
+        profession,
+        emergency_contact_name,
+        emergency_contact_phone,
+        birth_date,
+        sex,
+        health_insurance,
+        hospitalization_date,
+        person,
+    ):
         self.weight = weight
         self.marital_status = marital_status
         self.profession = profession

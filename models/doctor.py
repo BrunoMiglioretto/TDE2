@@ -1,6 +1,6 @@
 from sqlalchemy import ForeignKey, CHAR
 from sqlalchemy.dialects.mysql import MEDIUMINT
-from sqlalchemy.orm import Mapped, mapped_column
+from sqlalchemy.orm import Mapped, mapped_column, relationship
 
 from models import Base, Professional
 
@@ -18,3 +18,8 @@ class Doctor(Base):
     )
 
     crm: Mapped[str] = mapped_column("crm", CHAR(10), nullable=False, unique=True)
+    professional: Mapped["Professional"] = relationship(back_populates="doctors")
+
+    def __init__(self, crm, professional):
+        self.crm = crm
+        self.professional = professional
