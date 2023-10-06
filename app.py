@@ -1,6 +1,6 @@
 from datetime import datetime
 
-from models import Person, Professional, Patient, Doctor, Psychologist
+from models import Person, Professional, Patient, Doctor, Psychologist, Consultation
 from services.database import session
 from utils.database_utils import create_db
 
@@ -539,12 +539,57 @@ def create_psychologists():
     session.commit()
 
 
+def create_consultations():
+    stmt = select(Patient)
+    patients = [patient for patient in session.scalars(stmt)]
+
+    consultations = []
+
+    consultations.append(
+        Consultation(
+            time=datetime.strptime("2022-07-15", "%Y-%m-%d").date(),
+            patient=patients[0],
+        )
+    )
+    consultations.append(
+        Consultation(
+            time=datetime.strptime("2023-05-15", "%Y-%m-%d").date(),
+            patient=patients[1],
+        )
+    )
+    consultations.append(
+        Consultation(
+            time=datetime.strptime("2023-09-15", "%Y-%m-%d").date(),
+            patient=patients[2],
+        )
+    )
+    consultations.append(
+        Consultation(
+            time=datetime.strptime("2021-05-01", "%Y-%m-%d").date(),
+            patient=patients[3],
+        )
+    )
+    consultations.append(
+        Consultation(
+            time=datetime.strptime("2022-03-10", "%Y-%m-%d").date(),
+            patient=patients[4],
+        )
+    )
+    consultations.append(
+        Consultation(
+            time=datetime.strptime("2020-01-01", "%Y-%m-%d").date(),
+            patient=patients[5],
+        )
+    )
+
+
 if __name__ == "__main__":
     print("Creating database...")
     create_db()
 
-    create_people()
-    create_professionals()
-    create_patients()
-    create_doctors()
-    create_psychologists()
+    # create_people()
+    # create_professionals()
+    # create_patients()
+    # create_doctors()
+    # create_psychologists()
+    create_consultations()

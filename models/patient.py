@@ -1,4 +1,5 @@
 from datetime import datetime, date
+from typing import List
 
 from sqlalchemy import ForeignKey, VARCHAR, CHAR, DATE, FLOAT, DATETIME
 from sqlalchemy.dialects.mysql import MEDIUMINT
@@ -46,6 +47,9 @@ class Patient(Base):
         default=datetime.now(),
     )
     person: Mapped["Person"] = relationship(back_populates="patients")
+    consultations: Mapped[List["Consultation"]] = relationship(
+        back_populates="patient", cascade="all, delete-orphan"
+    )
 
     def __init__(
         self,
