@@ -1,7 +1,9 @@
+from typing import List
+
 from sqlalchemy import VARCHAR, CHAR, INTEGER
 
 from models import Base
-from sqlalchemy.orm import Mapped, mapped_column
+from sqlalchemy.orm import Mapped, mapped_column, relationship
 from sqlalchemy.dialects.mysql import MEDIUMINT
 
 
@@ -36,6 +38,9 @@ class Person(Base):
     phone: Mapped[str] = mapped_column("phone", CHAR(14), nullable=False, unique=True)
     email: Mapped[str] = mapped_column(
         "email", VARCHAR(50), nullable=False, unique=True
+    )
+    people: Mapped[List["Professional"]] = relationship(
+        back_populates="person", cascade="all, delete-orphan"
     )
 
     def __init__(

@@ -1,6 +1,10 @@
-from models import Person
+from datetime import datetime
+
+from models import Person, Professional
 from services.database import session
 from utils.database_utils import create_db
+
+from sqlalchemy import select
 
 
 def create_people():
@@ -88,8 +92,67 @@ def create_people():
     session.commit()
 
 
+def create_professional():
+    stmt = select(Person)
+    people = [person for person in session.scalars(stmt)]
+
+    professionals = [Professional(
+        enrollment="AKDFJKKKD",
+        salary=10000,
+        start_date=datetime.now(),
+        working_range="Junior",
+        speciality="Cardio",
+        consultation_fee=80,
+        person=people[0],
+    ), Professional(
+        enrollment="JKLFJSDFE",
+        salary=12000,
+        start_date=datetime.now(),
+        working_range="Senior",
+        speciality="Neurology",
+        consultation_fee=100,
+        person=people[1],
+    ), Professional(
+        enrollment="IODFJNSDF",
+        salary=9500,
+        start_date=datetime.now(),
+        working_range="Mid-Level",
+        speciality="Dermatology",
+        consultation_fee=90,
+        person=people[2],
+    ), Professional(
+        enrollment="ALSKDFJSD",
+        salary=11000,
+        start_date=datetime.now(),
+        working_range="Junior",
+        speciality="Oncology",
+        consultation_fee=85,
+        person=people[3],
+    ), Professional(
+        enrollment="POIUERLKJ",
+        salary=11500,
+        start_date=datetime.now(),
+        working_range="Senior",
+        speciality="Orthopedics",
+        consultation_fee=110,
+        person=people[4],
+    ), Professional(
+        enrollment="QWERTYUIO",
+        salary=10500,
+        start_date=datetime.now(),
+        working_range="Mid-Level",
+        speciality="Gynecology",
+        consultation_fee=95,
+        person=people[5],
+    )]
+
+    session.add_all(professionals)
+    session.commit()
+
+
 if __name__ == "__main__":
     print("Creating database...")
     create_db()
 
-    create_people()
+    # create_people()
+    create_professional()
