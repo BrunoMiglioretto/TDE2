@@ -1,6 +1,6 @@
 from datetime import datetime
 
-from models import Person, Professional, Patient, Doctor
+from models import Person, Professional, Patient, Doctor, Psychologist
 from services.database import session
 from utils.database_utils import create_db
 
@@ -48,7 +48,7 @@ def create_people():
             city="Metropolis",
             state="CA",
             country="USA",
-            phone="+1122334455",
+            phone="+5122334455",
             email="john@example.com",
         ),
         Person(
@@ -163,6 +163,104 @@ def create_people():
             phone="+1444333222",
             email="ava@example.com",
         ),
+        Person(
+            name="Liam Wilson",
+            cpf="55566677788",
+            zip="123456",
+            street="Sunset Boulevard",
+            street_number=99,
+            complement="Suite 501",
+            neighborhood="Hollywood Hills",
+            city="Los Angeles",
+            state="CA",
+            country="USA",
+            phone="+1122334455",
+            email="liam@example.com",
+        ),
+        Person(
+            name="Emma Davis",
+            cpf="66677788899",
+            zip="654321",
+            street="Ocean Avenue",
+            street_number=11,
+            complement="",
+            neighborhood="Beachfront",
+            city="Santa Monica",
+            state="CA",
+            country="USA",
+            phone="+6987654321",
+            email="emma@example.com",
+        ),
+        Person(
+            name="Noah Martinez",
+            cpf="77788899900",
+            zip="112233",
+            street="Palm Street",
+            street_number=22,
+            complement="APT 102",
+            neighborhood="Palm Beach",
+            city="Miami",
+            state="FL",
+            country="USA",
+            phone="+1654321829",
+            email="noah@example.com",
+        ),
+        Person(
+            name="Olivia Taylor",
+            cpf="88899900011",
+            zip="334455",
+            street="Grove Avenue",
+            street_number=55,
+            complement="",
+            neighborhood="Green Park",
+            city="Orlando",
+            state="FL",
+            country="USA",
+            phone="+1555123156",
+            email="olivia@example.com",
+        ),
+        Person(
+            name="James Johnson",
+            cpf="99900011222",
+            zip="998877",
+            street="Hillside Drive",
+            street_number=77,
+            complement="Suite 303",
+            neighborhood="Hilltop",
+            city="Tampa",
+            state="FL",
+            country="USA",
+            phone="+1444333252",
+            email="james@example.com",
+        ),
+        Person(
+            name="Isabella Brown",
+            cpf="00011122233",
+            zip="223344",
+            street="Forest Road",
+            street_number=33,
+            complement="",
+            neighborhood="Woodland",
+            city="Jacksonville",
+            state="FL",
+            country="USA",
+            phone="+1888777666",
+            email="isabella@example.com",
+        ),
+        Person(
+            name="Sophia Hernandez",
+            cpf="11223341156",
+            zip="223344",
+            street="Oak Street",
+            street_number=99,
+            complement="APT 401",
+            neighborhood="Downtown",
+            city="Metropolis",
+            state="CA",
+            country="USA",
+            phone="+1111134455",
+            email="sophiaa@example.com",
+        ),
     ]
 
     session.add_all(people)
@@ -171,7 +269,7 @@ def create_people():
 
 def create_professionals():
     stmt = select(Person)
-    people = [person for person in session.scalars(stmt)]
+    people = [person for person in session.scalars(stmt)][:12]
 
     professionals = [
         Professional(
@@ -228,6 +326,60 @@ def create_professionals():
             consultation_fee=95,
             person=people[5],
         ),
+        Professional(
+            enrollment="KDFJNSDF1",
+            salary=9500,
+            start_date=datetime.now(),
+            working_range="Junior",
+            speciality="Pediatrics",
+            consultation_fee=85,
+            person=people[6],
+        ),
+        Professional(
+            enrollment="DFJNSKDF2",
+            salary=11000,
+            start_date=datetime.now(),
+            working_range="Senior",
+            speciality="Ophthalmology",
+            consultation_fee=90,
+            person=people[7],
+        ),
+        Professional(
+            enrollment="KJDFNSDF3",
+            salary=10500,
+            start_date=datetime.now(),
+            working_range="Mid-Level",
+            speciality="Dentistry",
+            consultation_fee=80,
+            person=people[8],
+        ),
+        Professional(
+            enrollment="KJDFNSDF4",
+            salary=10000,
+            start_date=datetime.now(),
+            working_range="Junior",
+            speciality="Psychiatry",
+            consultation_fee=95,
+            person=people[9],
+        ),
+        Professional(
+            enrollment="SKDFNSDF5",
+            salary=11500,
+            start_date=datetime.now(),
+            working_range="Senior",
+            speciality="Gastroenterology",
+            consultation_fee=100,
+            person=people[10],
+        ),
+        Professional(
+            enrollment="KJDFNSDF6",
+            salary=9800,
+            start_date=datetime.now(),
+            working_range="Mid-Level",
+            speciality="Dermatology",
+            consultation_fee=88,
+            person=people[11],
+        ),
     ]
 
     session.add_all(professionals)
@@ -236,7 +388,7 @@ def create_professionals():
 
 def create_patients():
     stmt = select(Person)
-    people = [person for person in session.scalars(stmt)]
+    people = [person for person in session.scalars(stmt)][12:18]
 
     patients = [
         Patient(
@@ -304,7 +456,7 @@ def create_patients():
             marital_status="single",
             profession="Artist",
             emergency_contact_name="Oliver",
-            emergency_contact_phone="1122334455",
+            emergency_contact_phone="9122334455",
             birth_date=datetime.strptime("1995-09-02", "%Y-%m-%d").date(),
             sex="f",
             health_insurance="Kaiser",
@@ -319,7 +471,7 @@ def create_patients():
 
 def create_doctors():
     stmt = select(Professional)
-    professionals = [professional for professional in session.scalars(stmt)]
+    professionals = [professional for professional in session.scalars(stmt)][0:6]
 
     doctors = [
         Doctor(
@@ -352,11 +504,47 @@ def create_doctors():
     session.commit()
 
 
+def create_psychologists():
+    stmt = select(Professional)
+    professionals = [professional for professional in session.scalars(stmt)][6:12]
+
+    psychologists = [
+        Psychologist(
+            crp="0as9d8f9",
+            professional=professionals[0],
+        ),
+        Psychologist(
+            crp="asdf90909",
+            professional=professionals[1],
+        ),
+        Psychologist(
+            crp="98sd7f897",
+            professional=professionals[2],
+        ),
+        Psychologist(
+            crp="asdf976",
+            professional=professionals[3],
+        ),
+        Psychologist(
+            crp="23498dgfs",
+            professional=professionals[4],
+        ),
+        Psychologist(
+            crp="0as1d8f9",
+            professional=professionals[5],
+        ),
+    ]
+
+    session.add_all(psychologists)
+    session.commit()
+
+
 if __name__ == "__main__":
     print("Creating database...")
     create_db()
 
-    # create_people()
-    # create_professionals()
-    # create_patients()
-    # create_doctors()
+    create_people()
+    create_professionals()
+    create_patients()
+    create_doctors()
+    create_psychologists()

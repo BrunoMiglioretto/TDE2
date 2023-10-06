@@ -38,6 +38,9 @@ class Professional(Base):
     doctors: Mapped[List["Doctor"]] = relationship(
         back_populates="professional", cascade="all, delete-orphan"
     )
+    psychologists: Mapped[List["Psychologist"]] = relationship(
+        back_populates="professional", cascade="all, delete-orphan"
+    )
 
     def __init__(
         self,
