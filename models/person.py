@@ -1,6 +1,7 @@
 from typing import List
 
-from sqlalchemy import VARCHAR, CHAR, INTEGER
+from datetime import date
+from sqlalchemy import VARCHAR, CHAR, INTEGER, DATE
 
 from models import Base
 from sqlalchemy.orm import Mapped, mapped_column, relationship
@@ -16,6 +17,10 @@ class Person(Base):
     name: Mapped[str] = mapped_column(
         "name", VARCHAR(200), nullable=False, unique=False
     )
+    birth_date: Mapped[date] = mapped_column(
+        "birth_date", DATE, nullable=False, unique=False
+    )
+    sex: Mapped[str] = mapped_column("sex", CHAR(1), nullable=False, unique=False)
     cpf: Mapped[str] = mapped_column("cpf", CHAR(11), nullable=False, unique=True)
     zip: Mapped[str] = mapped_column("zip", CHAR(8), nullable=True, unique=False)
     street: Mapped[str] = mapped_column(
@@ -49,6 +54,8 @@ class Person(Base):
     def __init__(
         self,
         name,
+        birth_date,
+        sex,
         zip,
         cpf,
         street,
@@ -65,6 +72,8 @@ class Person(Base):
     ):
         super().__init__(**kwargs)
         self.name = name
+        self.birth_date = birth_date
+        self.sex = sex
         self.zip = zip
         self.cpf = cpf
         self.street = street

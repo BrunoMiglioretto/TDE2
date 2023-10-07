@@ -32,10 +32,6 @@ class Patient(Base):
     emergency_contact_phone: Mapped[str] = mapped_column(
         "emergency_contact_phone", CHAR(11), nullable=False, unique=False
     )
-    birth_date: Mapped[date] = mapped_column(
-        "birth_date", DATE, nullable=False, unique=False
-    )
-    sex: Mapped[str] = mapped_column("sex", CHAR(1), nullable=False, unique=False)
     health_insurance: Mapped[str] = mapped_column(
         "health_insurance", VARCHAR(50), nullable=False, unique=False
     )
@@ -58,8 +54,6 @@ class Patient(Base):
         profession,
         emergency_contact_name,
         emergency_contact_phone,
-        birth_date,
-        sex,
         health_insurance,
         hospitalization_date,
         person,
@@ -69,8 +63,6 @@ class Patient(Base):
         self.profession = profession
         self.emergency_contact_name = emergency_contact_name
         self.emergency_contact_phone = emergency_contact_phone
-        self.birth_date = birth_date
-        self.sex = sex
         self.health_insurance = health_insurance
         self.hospitalization_date = hospitalization_date
         self.person = person
